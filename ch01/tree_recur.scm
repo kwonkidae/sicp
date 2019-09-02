@@ -125,3 +125,15 @@
 (define (inc n) (+ n 1))
 (define (ho-sum-cubes a b)
   (sum cube a inc b))
+
+((lambda (x) (+ x 4)) 4) 
+
+(define (f x y)
+  (define (f-helper a b)
+    (+ (* x (square a))
+       (* y b)
+       (* a b)))
+  (f-helper (+ 1 (* x y))
+            (- 1 y)))
+
+(define (f g) (g 2))
