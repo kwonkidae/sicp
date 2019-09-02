@@ -69,3 +69,59 @@
         ((divides? test-divisor n) test-divisor)
         (else (find-divisor n (+ test-divisor 1)))))
 (define (divides? a b) (= (remainder b a) 0))
+
+(define (expmod base exp m)
+  (cond ((= exp 0) 1)
+        ((even? exp)
+          (remainder
+            (square (expmod base (/ exp 2 ) m))
+            m))
+        (else 
+          (remainder
+            (* base (expmod base (- exp 1) m))
+          m))))
+
+(define (prime? n)
+  (= n (smallest-divisor n)))
+
+(define (timed-prime-test n)
+  (newline)
+  (display n)
+  (start-prime-test n (runtime)))
+
+(define (start-prime-test n start-time)
+  (if (prime? n)
+      (report-prime (- (runtime) start-time))))
+
+(define (report-prime elapsed-time)
+  (display " *** ")
+  (display elapsed-time))
+
+(define (cube x) (* x x x))
+
+(define (sum-integers a b)
+  (if (> a b)
+      0
+      (+ a (sum-integers (+ a 1) b))))
+
+(define (sum-cubes a b)
+  (if (> a b)
+      0
+      (+ (cube a)
+         (sum-cubes (+ a 1 ) b))))
+
+(define (pi-sum a b)
+  (if (> a b)
+      0
+      (+ (/ 1.0 (* a (+ a 2)))
+         (pi-sum (+ a 4) b))))
+
+(define (sum term a next b)
+  (if (> a b)
+      0
+      (+ (term a)
+         (sum term (next a) next b))))
+
+(define (inc n) (+ n 1))
+(define (ho-sum-cubes a b)
+  (sum cube a inc b))
